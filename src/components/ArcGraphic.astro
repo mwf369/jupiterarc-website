@@ -1,0 +1,129 @@
+---
+// Hero illustration: a banded gas giant with a lead's trajectory arcing past it
+// through three waypoints (Find, Close, Keep). The dot traveling the arc is the
+// page's single ambient animation; it pauses for reduced-motion users.
+const stops = [
+  { label: "Find", x: 149, y: 380 },
+  { label: "Close", x: 272, y: 214 },
+  { label: "Keep", x: 459, y: 105 },
+];
+const bands = [
+  { y: 150, h: 26, c: "#fde4c4" },
+  { y: 176, h: 18, c: "#ffc23d" },
+  { y: 194, h: 30, c: "#ffdca0" },
+  { y: 224, h: 22, c: "#ff8a3d" },
+  { y: 246, h: 34, c: "#ffd27a" },
+  { y: 280, h: 16, c: "#ff6b1a" },
+  { y: 296, h: 40, c: "#ffb04a" },
+  { y: 336, h: 20, c: "#e8613a" },
+  { y: 356, h: 34, c: "#ffd08a" },
+  { y: 390, h: 22, c: "#ff8a3d" },
+  { y: 412, h: 40, c: "#ffc23d" },
+];
+---
+
+<svg
+  id="arc-graphic"
+  viewBox="0 0 640 600"
+  class="h-auto w-full"
+  role="img"
+  aria-label="A planet with a curved path showing three stages: find, close and keep customers"
+>
+  <defs>
+    <clipPath id="planet-clip">
+      <circle cx="420" cy="300" r="150"></circle>
+    </clipPath>
+    <radialGradient id="planet-shade" cx="35%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"></stop>
+      <stop offset="55%" stop-color="#ffffff" stop-opacity="0"></stop>
+      <stop offset="100%" stop-color="#17123d" stop-opacity="0.55"></stop>
+    </radialGradient>
+    <radialGradient id="glow">
+      <stop offset="0%" stop-color="#ffc23d" stop-opacity="0.9"></stop>
+      <stop offset="100%" stop-color="#ffc23d" stop-opacity="0"></stop>
+    </radialGradient>
+    <linearGradient id="trail" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffc23d" stop-opacity="0.15"></stop>
+      <stop offset="100%" stop-color="#ffc23d" stop-opacity="0.9"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- stars -->
+  <g fill="#ffffff">
+    <circle cx="60" cy="70" r="1.6" opacity="0.7"></circle>
+    <circle cx="180" cy="40" r="1.2" opacity="0.5"></circle>
+    <circle cx="300" cy="90" r="1.8" opacity="0.6"></circle>
+    <circle cx="590" cy="190" r="1.4" opacity="0.6"></circle>
+    <circle cx="610" cy="470" r="1.8" opacity="0.5"></circle>
+    <circle cx="250" cy="520" r="1.3" opacity="0.5"></circle>
+    <circle cx="40" cy="250" r="1.5" opacity="0.4"></circle>
+    <circle cx="520" cy="560" r="1.2" opacity="0.5"></circle>
+  </g>
+
+  <!-- planet -->
+  <circle cx="420" cy="300" r="190" fill="#ff6b1a" opacity="0.12"></circle>
+  <g clip-path="url(#planet-clip)">
+    <rect x="260" y="140" width="320" height="320" fill="#ffc23d"></rect>
+    {bands.map((b) => <rect x="260" y={b.y} width="320" height={b.h} fill={b.c} />)}
+    <ellipse cx="470" cy="346" rx="40" ry="20" fill="#e8364a"></ellipse>
+    <ellipse cx="470" cy="346" rx="26" ry="11" fill="#ff7a5c"></ellipse>
+    <rect x="260" y="140" width="320" height="320" fill="url(#planet-shade)"></rect>
+  </g>
+
+  <!-- trajectory -->
+  <path
+    id="lead-path"
+    d="M 102 555 A 520 520 0 0 1 620 80"
+    fill="none"
+    stroke="url(#trail)"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-dasharray="2 9"
+  ></path>
+
+  <!-- waypoints -->
+  {
+    stops.map((s) => (
+      <g>
+        <circle cx={s.x} cy={s.y} r="13" fill="#17123d" stroke="#ffc23d" stroke-width="3" />
+        <circle cx={s.x} cy={s.y} r="4.5" fill="#ffc23d" />
+        <text
+          x={s.x - 22}
+          y={s.y + 6}
+          text-anchor="end"
+          fill="#ffffff"
+          font-family="Unbounded Variable, sans-serif"
+          font-size="20"
+          font-weight="600"
+        >
+          {s.label}
+        </text>
+      </g>
+    ))
+  }
+
+  <!-- the lead -->
+  <g>
+    <circle r="22" fill="url(#glow)"></circle>
+    <circle r="7" fill="#ffffff"></circle>
+    <animateMotion dur="7s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+      <mpath href="#lead-path"></mpath>
+    </animateMotion>
+  </g>
+</svg>
+
+<script>
+  const svg = document.getElementById("arc-graphic") as SVGSVGElement | null;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const sync = () => {
+    if (!svg) return;
+    if (reduce.matches) {
+      svg.setCurrentTime(3.2); // park the lead near "Close"
+      svg.pauseAnimations();
+    } else {
+      svg.unpauseAnimations();
+    }
+  };
+  sync();
+  reduce.addEventListener("change", sync);
+</script>

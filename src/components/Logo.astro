@@ -1,0 +1,24 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<span class:list={["inline-flex items-center gap-2.5", className]}>
+  <svg viewBox="0 0 40 40" class="h-9 w-9 shrink-0" aria-hidden="true">
+    <defs>
+      <clipPath id="logo-clip"><circle cx="22" cy="21" r="12"></circle></clipPath>
+    </defs>
+    <g clip-path="url(#logo-clip)">
+      <rect x="8" y="8" width="28" height="28" fill="#ffc23d"></rect>
+      <rect x="8" y="13" width="28" height="4" fill="#ff6b1a"></rect>
+      <rect x="8" y="21" width="28" height="3" fill="#fde4c4"></rect>
+      <rect x="8" y="27" width="28" height="4" fill="#ff6b1a"></rect>
+      <ellipse cx="26" cy="28.5" rx="3.5" ry="1.8" fill="#e8364a"></ellipse>
+    </g>
+    <path d="M3 34 A 26 26 0 0 1 36 4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
+    <circle cx="36" cy="4" r="2.6" fill="currentColor"></circle>
+  </svg>
+  <span class="font-display text-lg font-semibold tracking-tight">Jupiter Arc</span>
+</span>

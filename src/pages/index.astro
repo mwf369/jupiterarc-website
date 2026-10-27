@@ -1,0 +1,292 @@
+---
+import "../styles/global.css";
+import ArcGraphic from "../components/ArcGraphic.astro";
+import Icon from "../components/Icon.astro";
+import Logo from "../components/Logo.astro";
+import { site, niches, services, steps } from "../data/site";
+
+const title = "Jupiter Arc | AI that finds, closes and keeps your customers";
+const description =
+  "Jupiter Arc helps local businesses answer every call, follow up with every lead and bring customers back, with AI receptionists, automated booking and follow-up.";
+
+// Each industry card gets its own set of "cloud bands" across the top.
+const bandSets = [
+  ["#ff6b1a", "#ffc23d", "#fde4c4"],
+  ["#ffc23d", "#e8364a", "#ff8a3d"],
+  ["#e8364a", "#ff6b1a", "#ffd27a"],
+];
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={`https://${site.domain}`} />
+    <meta name="theme-color" content="#17123d" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={`https://${site.domain}/`} />
+  </head>
+  <body class="font-sans antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-band focus:px-4 focus:py-2 focus:text-space"
+      >Skip to content</a
+    >
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 border-b border-white/10 bg-space/90 text-white backdrop-blur">
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+        <a href="#top" class="text-band" aria-label="Jupiter Arc home">
+          <Logo class="text-white [&_svg]:text-band" />
+        </a>
+        <nav aria-label="Main" class="hidden items-center gap-7 text-sm font-medium text-mist md:flex">
+          <a href="#industries" class="hover:text-white">Industries</a>
+          <a href="#services" class="hover:text-white">Services</a>
+          <a href="#how" class="hover:text-white">How it works</a>
+          <a href="#contact" class="hover:text-white">Contact</a>
+        </nav>
+        <a
+          href={site.bookingUrl}
+          class="rounded-full bg-flare px-4 py-2 text-sm font-semibold text-white shadow-[0_6px_20px_-6px_#ff6b1a] hover:bg-[#ff7f36]"
+          >Book a free demo</a
+        >
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- Hero -->
+      <section id="top" class="relative overflow-hidden bg-space text-white">
+        <div
+          class="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_60%_at_80%_30%,#3a2a8a_0%,transparent_70%)]"
+          aria-hidden="true"
+        >
+        </div>
+        <div class="relative mx-auto grid max-w-7xl items-center gap-8 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:pb-24 lg:pt-20">
+          <div>
+            <h1 class="font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+              Every call answered. Every lead followed up. Every customer back again.
+            </h1>
+            <p class="mt-6 max-w-xl text-lg leading-relaxed text-mist">
+              Jupiter Arc sets up AI receptionists, automated booking and follow-up for local businesses, so the
+              customers you're already paying to attract actually end up on your calendar.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a
+                href={site.bookingUrl}
+                class="rounded-full bg-flare px-6 py-3.5 font-semibold text-white shadow-[0_10px_30px_-8px_#ff6b1a] hover:bg-[#ff7f36]"
+                >Book a free demo</a
+              >
+              <a
+                href="#services"
+                class="rounded-full border border-white/25 px-6 py-3.5 font-semibold text-white hover:border-band hover:text-band"
+                >See what we set up</a
+              >
+            </div>
+            <ul class="mt-10 grid max-w-lg grid-cols-3 gap-4 border-t border-white/10 pt-6 text-sm text-mist">
+              <li><span class="block font-display text-xl text-band">24/7</span>calls answered</li>
+              <li><span class="block font-display text-xl text-band">Seconds</span>to reply to new leads</li>
+              <li><span class="block font-display text-xl text-band">Days</span>from kickoff to live</li>
+            </ul>
+          </div>
+          <div class="mx-auto w-full max-w-xl lg:max-w-none">
+            <ArcGraphic />
+          </div>
+        </div>
+      </section>
+
+      <!-- Industries -->
+      <section id="industries" class="bg-haze py-20 sm:py-24">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6">
+          <div class="max-w-2xl">
+            <h2 class="font-display text-3xl font-semibold tracking-tight text-space sm:text-4xl">
+              Built for businesses where one customer is worth thousands
+            </h2>
+            <p class="mt-4 text-lg leading-relaxed text-ink/75">
+              Every industry loses customers in a different place. We set up the pieces that close the gap for yours.
+            </p>
+          </div>
+
+          <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {
+              niches.map((n, i) => {
+                const b = bandSets[i % bandSets.length];
+                return (
+                  <li class="flex flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-space/8 shadow-[0_18px_40px_-28px_#17123d]">
+                    <div class="flex h-3" aria-hidden="true">
+                      <span class="flex-[5]" style={`background:${b[0]}`} />
+                      <span class="flex-[2]" style={`background:${b[1]}`} />
+                      <span class="flex-[3]" style={`background:${b[2]}`} />
+                    </div>
+                    <div class="flex flex-1 flex-col p-6">
+                      <div class="flex items-start gap-4">
+                        <span
+                          class="grid h-12 w-12 shrink-0 place-items-center rounded-xl text-white"
+                          style={`background:${b[0]}`}
+                        >
+                          <Icon name={n.icon} size={24} />
+                        </span>
+                        <div>
+                          <h3 class="font-display text-lg font-semibold leading-snug text-space">{n.name}</h3>
+                          <p class="mt-0.5 text-sm font-semibold text-flare">{n.ticket}</p>
+                        </div>
+                      </div>
+                      <p class="mt-4 leading-relaxed text-ink/80">{n.pain}</p>
+                      <ul class="mt-5 space-y-2.5 border-t border-space/10 pt-5">
+                        {n.offers.map((o) => (
+                          <li class="flex gap-2.5 text-[0.95rem] text-ink">
+                            <Icon name="Check" size={18} class="mt-0.5 shrink-0 text-flare" />
+                            <span>{o}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </li>
+                );
+              })
+            }
+          </ul>
+          <p class="mt-10 text-center text-ink/75">
+            Don't see your industry?{" "}
+            <a href="#contact" class="font-semibold text-flare underline decoration-2 underline-offset-4 hover:text-storm"
+              >Tell us about your business</a
+            >. If your customers call, click or book, we can help.
+          </p>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section id="services" class="relative overflow-hidden bg-space py-20 text-white sm:py-24">
+        <div
+          class="pointer-events-none absolute -left-40 top-10 h-96 w-96 rounded-full bg-flare/15 blur-3xl"
+          aria-hidden="true"
+        >
+        </div>
+        <div class="relative mx-auto max-w-7xl px-4 sm:px-6">
+          <div class="max-w-2xl">
+            <h2 class="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+              Your new front office never sleeps
+            </h2>
+            <p class="mt-4 text-lg leading-relaxed text-mist">
+              Nine services that work together. Start with one, or let us set up the whole system.
+            </p>
+          </div>
+
+          <ul class="mt-12 grid gap-px overflow-hidden rounded-2xl bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
+            {
+              services.map((s) => (
+                <li class="bg-space-2 p-7 hover:bg-[#2b2270]">
+                  <span class="grid h-11 w-11 place-items-center rounded-full bg-band text-space">
+                    <Icon name={s.icon} size={22} />
+                  </span>
+                  <p class="mt-5 text-sm font-semibold text-band">{s.name}</p>
+                  <h3 class="mt-1 font-display text-xl font-semibold leading-snug">{s.promise}</h3>
+                  <p class="mt-3 leading-relaxed text-mist">{s.detail}</p>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </section>
+
+      <!-- How it works -->
+      <section id="how" class="bg-white py-20 sm:py-24">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6">
+          <h2 class="max-w-2xl font-display text-3xl font-semibold tracking-tight text-space sm:text-4xl">
+            Find. Close. Keep.
+          </h2>
+          <p class="mt-4 max-w-2xl text-lg leading-relaxed text-ink/75">
+            One connected system follows each customer from first call to repeat visit. We build it, launch it and
+            keep tuning it every month.
+          </p>
+          <ol class="relative mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
+            <svg
+              class="absolute left-0 right-0 top-6 hidden h-16 w-full md:block"
+              viewBox="0 0 1000 60"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M 60 50 Q 500 -30 940 50"
+                fill="none"
+                stroke="#ff6b1a"
+                stroke-width="3"
+                stroke-dasharray="2 10"
+                stroke-linecap="round"
+                vector-effect="non-scaling-stroke"></path>
+            </svg>
+            {
+              steps.map((s, i) => (
+                <li class="relative">
+                  <span class="relative grid h-14 w-14 place-items-center rounded-full bg-space font-display text-xl font-semibold text-band ring-8 ring-white">
+                    {i + 1}
+                  </span>
+                  <h3 class="mt-5 font-display text-2xl font-semibold text-space">{s.name}</h3>
+                  <p class="mt-2 max-w-sm leading-relaxed text-ink/80">{s.text}</p>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section id="contact" class="relative overflow-hidden bg-flare py-20 text-white sm:py-24">
+        <div class="pointer-events-none absolute inset-y-0 right-0 hidden w-1/3 lg:block" aria-hidden="true">
+          <div class="h-1/6 bg-band/70"></div>
+          <div class="h-1/12 bg-storm/60"></div>
+          <div class="h-1/5 bg-cloud/40"></div>
+          <div class="h-1/12 bg-band/60"></div>
+          <div class="h-1/4 bg-storm/40"></div>
+          <div class="h-1/6 bg-band/50"></div>
+        </div>
+        <div class="relative mx-auto max-w-7xl px-4 sm:px-6">
+          <div class="max-w-2xl">
+            <h2 class="font-display text-3xl font-semibold leading-tight tracking-tight sm:text-5xl">
+              Find out how many customers you're missing
+            </h2>
+            <p class="mt-5 text-lg leading-relaxed text-white/90">
+              Get a free missed-lead check-up. We'll call your business after hours, submit a test lead from your
+              website, and show you exactly what your customers experience, plus what it's costing you.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a
+                href={site.bookingUrl}
+                class="rounded-full bg-space px-6 py-3.5 font-semibold text-white hover:bg-space-2">Book a free demo</a
+              >
+              <a
+                href={site.phoneHref}
+                class="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 font-semibold text-space hover:bg-haze"
+              >
+                <Icon name="Phone" size={18} />
+                {site.phone}
+              </a>
+            </div>
+            <p class="mt-6 flex items-center gap-2 text-white/90">
+              <Icon name="Mail" size={18} />
+              <a href={`mailto:${site.email}`} class="underline decoration-white/50 underline-offset-4 hover:decoration-white"
+                >{site.email}</a
+              >
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-space py-10 text-sm text-mist">
+      <div class="mx-auto flex max-w-7xl flex-col gap-6 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div>
+          <Logo class="text-white [&_svg]:text-band" />
+          <p class="mt-2">{site.region}</p>
+        </div>
+        <p>© {year} Jupiter Arc. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

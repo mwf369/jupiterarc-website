@@ -1,0 +1,40 @@
+@import "tailwindcss";
+@import "@fontsource-variable/unbounded";
+@import "@fontsource-variable/figtree";
+
+@theme {
+  /* Jupiter Arc palette */
+  --color-space: #17123d;      /* deep night sky */
+  --color-space-2: #241c5c;    /* lifted indigo for panels */
+  --color-flare: #ff6b1a;      /* Jupiter orange, primary action */
+  --color-band: #ffc23d;       /* gold cloud band */
+  --color-storm: #e8364a;      /* Great Red Spot */
+  --color-haze: #fff3e3;       /* apricot daylight */
+  --color-cloud: #fde4c4;      /* pale band */
+  --color-ink: #1d1838;        /* body text on light */
+  --color-mist: #c9c3f0;       /* secondary text on dark */
+
+  --font-display: "Unbounded Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Figtree Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--color-haze);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-band);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
